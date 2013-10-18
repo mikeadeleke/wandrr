@@ -46,6 +46,8 @@ class DestinationsController < ApplicationController
   # PATCH/PUT /destinations/1
   # PATCH/PUT /destinations/1.json
   def update
+    @destination = Destination.find(params[:id])
+
     respond_to do |format|
       if @destination.update(destination_params)
         format.html { redirect_to trip_destination_path(@destination.trip, @destination), notice: 'Destination was successfully updated.' }
