@@ -10,6 +10,7 @@ class DestinationsController < ApplicationController
   # GET /destinations/1
   # GET /destinations/1.json
   def show
+    @trip = Trip.find(params[:trip_id])
     @destination = Destination.find(params[:id])
   end
 
@@ -47,7 +48,7 @@ class DestinationsController < ApplicationController
   def update
     respond_to do |format|
       if @destination.update(destination_params)
-        format.html { redirect_to @destination, notice: 'Destination was successfully updated.' }
+        format.html { redirect_to trip_destination_path(@destination.trip, @destination), notice: 'Destination was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
