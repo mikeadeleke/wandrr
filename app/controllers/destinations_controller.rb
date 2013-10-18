@@ -10,6 +10,7 @@ class DestinationsController < ApplicationController
   # GET /destinations/1
   # GET /destinations/1.json
   def show
+    @destination = Destination.find(params[:id])
   end
 
   # GET /destinations/new
@@ -28,11 +29,11 @@ class DestinationsController < ApplicationController
   # POST /destinations.json
   def create
     @trip = Trip.find(params[:trip_id])
-    @destination = @trip.destinations.new(destination_params)
+    @destination = @trip.destinations.new(params[:destination])
 
     respond_to do |format|
       if @destination.save
-        format.html { redirect_to @destination, notice: 'Destination was successfully created.' }
+        format.html { redirect_to trip_destination_path(@trip, @destination), notice: 'Destination was successfully created.' }
         format.json { render action: 'show', status: :created, location: @destination }
       else
         format.html { render action: 'new' }
